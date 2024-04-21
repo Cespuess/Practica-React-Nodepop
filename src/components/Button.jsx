@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import styles from './components-styles/Button.module.scss';
 
-export default function Button({ eventFunction, children }) {
+export default function Button({ buttonType, eventFunction, children }) {
   return (
-    <button className={styles.button} onClick={eventFunction}>
+    <button type={buttonType} className={styles.button} onClick={eventFunction}>
       {children}
     </button>
   );
 }
 
 Button.propTypes = {
-  children: PropTypes.array.isRequired,
+  buttonType: PropTypes.string,
+  children: PropTypes.string.isRequired,
   eventFunction: PropTypes.func
 };
