@@ -1,10 +1,11 @@
 import Footer from './Footer';
 import Header from './Header';
 import PropTypes from 'prop-types';
+import styles from './layout-styles/Layout.module.scss';
 
 export default function Layout({ children }) {
   return (
-    <div>
+    <div className={styles.layout}>
       <Header />
       <main>{children}</main>
       <Footer />
