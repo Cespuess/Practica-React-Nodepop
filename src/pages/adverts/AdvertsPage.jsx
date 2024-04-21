@@ -1,7 +1,20 @@
+import { useEffect, useState } from 'react';
 import { getAdverts } from './serviceAdverts';
 
-export default async function AdvertsPage() {
-  const adverts = await getAdverts();
+export default function AdvertsPage() {
+  const [adverts, setAdverts] = useState([]);
+
+  useEffect(() => {
+    async function fetchAdverts() {
+      try {
+        const adverts = await getAdverts();
+        setAdverts(adverts);
+      } catch (error) {
+        alert(error);
+      }
+    }
+    fetchAdverts();
+  }, []);
 
   function emptyAdverts() {
     return <p>No hay anuncios en este momento.</p>;
