@@ -1,11 +1,11 @@
 import './App.module.scss';
 import Layout from './components/layout/Layout';
-import LoginPage from './pages/auth/LoginPage';
+import AdvertsPage from './pages/adverts/AdvertsPage';
 
 function App() {
   return (
     <Layout>
-      <LoginPage />
+      <AdvertsPage />
     </Layout>
   );
 }

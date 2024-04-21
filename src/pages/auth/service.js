@@ -8,7 +8,7 @@ import storage from '../../utils/storage';
 export const login = async (credentials) => {
   try {
     const accessToken = await client.post('/api/auth/login', credentials);
-    setAuthorizationHeader(accessToken);
+    setAuthorizationHeader(accessToken.accessToken);
     return accessToken;
   } catch (error) {
     throw new Error(error);
@@ -17,5 +17,5 @@ export const login = async (credentials) => {
 
 export const logout = () => {
   removeAuthorizationHeader();
-  storage.remove('auth');
+  storage.delete('auth');
 };

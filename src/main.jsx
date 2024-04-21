@@ -7,7 +7,7 @@ import storage from './utils/storage.js';
 import { AuthContextProvider } from './pages/auth/authContext.jsx';
 
 const accessToken = storage.get('auth');
-if (accessToken) setAuthorizationHeader(accessToken);
+if (accessToken) setAuthorizationHeader(accessToken.accessToken);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
