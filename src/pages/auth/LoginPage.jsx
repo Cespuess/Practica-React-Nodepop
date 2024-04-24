@@ -11,9 +11,11 @@ export default function LoginPage() {
     password: ''
   });
   const [checkValue, setCheckValue] = useState(false);
+  const [error, setError] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   const { email, password } = formValues;
-  const disButton = !email || !password;
+  const disButton = !email || !password || isFetching;
 
   const handleChangeCredentials = (event) => {
     setFormValues((currentFormValues) => ({
@@ -22,6 +24,8 @@ export default function LoginPage() {
     }));
   };
 
+  const handleError = () => setError(null);
+
   const handleChangeCheckValue = () => {
     setCheckValue(() => !checkValue);
   };
@@ -29,10 +33,13 @@ export default function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      setIsFetching(true);
       const accessToken = await login(formValues);
       if (checkValue) storage.set('auth', accessToken);
     } catch (error) {
-      alert(error);
+      setError(error);
+    } finally {
+      setIsFetching(false);
     }
   };
 
@@ -69,6 +76,11 @@ export default function LoginPage() {
         <Button buttonType="submit" disabledButton={disButton}>
           Acceder a Nodepop
         </Button>
+        {error && (
+          <div className={styles.errorDisplay} onClick={handleError}>
+            {error.message}
+          </div>
+        )}
       </form>
     </div>
   );

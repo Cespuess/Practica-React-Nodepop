@@ -11,7 +11,8 @@ export const login = async (credentials) => {
     setAuthorizationHeader(accessToken.accessToken);
     return accessToken;
   } catch (error) {
-    throw new Error(error);
+    if (error.response) throw error.response.data;
+    throw error;
   }
 };
 
