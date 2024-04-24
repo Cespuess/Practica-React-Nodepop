@@ -1,4 +1,4 @@
-const storage = {
+const storageLocal = {
   get(key) {
     const value = localStorage.getItem(key);
     if (!value) return null;
@@ -18,4 +18,24 @@ const storage = {
   }
 };
 
-export default storage;
+const storageSession = {
+  get(key) {
+    const value = sessionStorage.getItem(key);
+    if (!value) return null;
+    return JSON.parse(value);
+  },
+
+  set(key, value) {
+    sessionStorage.setItem(key, JSON.stringify(value));
+  },
+
+  delete(key) {
+    sessionStorage.removeItem(key);
+  },
+
+  clear() {
+    sessionStorage.clear();
+  }
+};
+
+export { storageLocal, storageSession };

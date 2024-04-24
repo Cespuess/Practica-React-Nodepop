@@ -3,8 +3,9 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import styles from './LoginPage.module.scss';
 import { login } from './service';
-import storage from '../../utils/storage';
+import { storageLocal, storageSession } from '../../utils/storage';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from './authContext';
 
 export default function LoginPage() {
   const [formValues, setFormValues] = useState({
@@ -17,6 +18,8 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   console.log(location);
+  const { onLogin } = useAuth();
+
   const { email, password } = formValues;
   const disButton = !email || !password || isFetching;
 
@@ -38,7 +41,11 @@ export default function LoginPage() {
     try {
       setIsFetching(true);
       const accessToken = await login(formValues);
-      if (checkValue) storage.set('auth', accessToken);
+      storageSession.set('auth', accessToken);
+      onLogin();
+      if (checkValue) storageLocal.set('auth', accessToken);
+      const to = location.state?.from || '/';
+      navigate(to);
     } catch (error) {
       setError(error);
     } finally {

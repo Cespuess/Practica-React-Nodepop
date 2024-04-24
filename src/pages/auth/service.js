@@ -3,7 +3,7 @@ import {
   removeAuthorizationHeader,
   setAuthorizationHeader
 } from '../../api/client';
-import storage from '../../utils/storage';
+import { storageLocal, storageSession } from '../../utils/storage';
 
 export const login = async (credentials) => {
   try {
@@ -18,5 +18,6 @@ export const login = async (credentials) => {
 
 export const logout = () => {
   removeAuthorizationHeader();
-  storage.delete('auth');
+  storageSession.delete('auth');
+  storageLocal.delete('auth');
 };
