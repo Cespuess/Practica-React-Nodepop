@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../pages/auth/authContext';
 import { logout } from '../../pages/auth/service';
 import Button from '../Button';
@@ -12,7 +13,9 @@ export default function Header() {
   };
   return (
     <header className={styles.header}>
-      <h1>NODEPOP</h1>
+      <Link to="/">
+        <h1>NODEPOP</h1>
+      </Link>
       <nav>
         {isLogged ? (
           <>
