@@ -4,6 +4,7 @@ import Input from '../../components/Input';
 import styles from './LoginPage.module.scss';
 import { login } from './service';
 import storage from '../../utils/storage';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function LoginPage() {
   const [formValues, setFormValues] = useState({
@@ -13,7 +14,9 @@ export default function LoginPage() {
   const [checkValue, setCheckValue] = useState(false);
   const [error, setError] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
   const { email, password } = formValues;
   const disButton = !email || !password || isFetching;
 
