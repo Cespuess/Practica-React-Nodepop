@@ -17,7 +17,6 @@ export default function LoginPage() {
   const [isFetching, setIsFetching] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
   const { onLogin } = useAuth();
 
   const { email, password } = formValues;

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../../pages/auth/authContext';
 import { logout } from '../../pages/auth/service';
 import Button from '../Button';
@@ -19,8 +19,20 @@ export default function Header() {
       <nav>
         {isLogged ? (
           <>
-            <Button>Anuncios</Button>
-            <Button>Crear Anuncio</Button>
+            <NavLink
+              to="/adverts"
+              className={({ isActive }) => (isActive ? styles.hidden : '')}
+              end
+            >
+              <Button>Anuncios</Button>
+            </NavLink>
+            <NavLink
+              to="/adverts/new"
+              className={({ isActive }) => (isActive ? styles.hidden : '')}
+              end
+            >
+              <Button>Crear Anuncio</Button>
+            </NavLink>
             <Button eventFunction={handleLogout}>Logout</Button>
           </>
         ) : (

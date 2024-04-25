@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getAdverts } from './serviceAdverts';
+import Button from '../../components/Button';
+import { Link } from 'react-router-dom';
 
 export default function AdvertsPage() {
   const [adverts, setAdverts] = useState([]);
@@ -17,7 +19,11 @@ export default function AdvertsPage() {
   }, []);
 
   function emptyAdverts() {
-    return <p>No hay anuncios en este momento.</p>;
+    return (
+      <Link to="/adverts/new">
+        <Button>¡Sé el primero en crear un anuncio!</Button>
+      </Link>
+    );
   }
 
   function fullAdverts() {}
