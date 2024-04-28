@@ -1,0 +1,19 @@
+@import '../../main.module.scss';
+
+.advertContainer {
+  border: solid 2px $primary-color;
+  padding: 1rem;
+  border-radius: 10px;
+  color: black;
+
+  .image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .price {
+    font-weight: bold;
+  }
+}
