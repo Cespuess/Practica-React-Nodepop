@@ -13,7 +13,6 @@ export default function AdvertDetail() {
   const [advert, setAdvert] = useState(null);
   const [error, setError] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [deleteAd, setDeleteAd] = useState(false);
 
   useEffect(() => {
     async function getAdvert() {

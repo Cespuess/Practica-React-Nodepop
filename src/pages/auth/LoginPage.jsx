@@ -75,12 +75,12 @@ export default function LoginPage() {
         <div className={styles.checkbox_container}>
           <input
             type="checkbox"
-            name="rememberPassword"
-            id="rememberPassword"
+            name="rememberSession"
+            id="rememberSession"
             value={checkValue}
             onChange={handleChangeCheckValue}
           ></input>
-          <label htmlFor="rememberPassword">Recordar contraseña</label>
+          <label htmlFor="rememberSession">Recordar Sesión</label>
         </div>
         <Button buttonType="submit" disabledButton={disButton}>
           Acceder a Nodepop

@@ -1,0 +1,33 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.formNewAd {
+  border: solid 2px rgb(19, 193, 172);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+fieldset {
+  border: none;
+}
+
+legend {
+  margin-bottom: 0.5rem;
+}
+
+.formFieldTags {
+  display: flex;
+  gap: 1rem;
+}
