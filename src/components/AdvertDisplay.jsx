@@ -2,11 +2,18 @@ import PropTypes from 'prop-types';
 import defautlImage from '../assets/defaultImage.jpg';
 import styles from './components-styles/AdvertDisplay.module.scss';
 
-export default function AdvertDisplay({ name, price, sale, tags, photo }) {
+export default function AdvertDisplay({
+  name,
+  price,
+  sale,
+  tags,
+  photo,
+  style
+}) {
   return (
     <div className={styles.advertContainer}>
       <img
-        className={styles.image}
+        className={style === 'list' ? styles.imageList : styles.imageDetail}
         src={photo ? photo : defautlImage}
         alt={name}
       />
@@ -23,5 +30,6 @@ AdvertDisplay.propTypes = {
   price: PropTypes.number,
   tags: PropTypes.arrayOf(PropTypes.string),
   sale: PropTypes.bool,
-  photo: PropTypes.string
+  photo: PropTypes.string,
+  style: PropTypes.string
 };

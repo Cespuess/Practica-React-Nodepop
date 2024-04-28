@@ -33,7 +33,7 @@ export default function AdvertsPage() {
     return adverts.map(({ id, ...advert }) => (
       <div key={id}>
         <Link to={`/adverts/${id}`}>
-          <AdvertDisplay {...advert} />
+          <AdvertDisplay {...advert} style="list" />
         </Link>
       </div>
     ));

@@ -1,0 +1,20 @@
+@import '../../main.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  button {
+    margin-top: 1rem;
+  }
+}
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  background-color: rgba(218, 100, 100, 0.521);
+  border: red 1px solid;
+  border-radius: 10px;
+  padding: 0.5rem;
+}
