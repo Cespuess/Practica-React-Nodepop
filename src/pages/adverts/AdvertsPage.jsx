@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAdverts } from './serviceAdverts';
+import { getAdverts } from '../../utils/serviceAdverts';
 import Button from '../../components/Button';
 import { Link } from 'react-router-dom';
 import AdvertDisplay from '../../components/AdvertDisplay';

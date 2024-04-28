@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAdvertDetail } from './serviceDetail';
+import { deleteAdvertApi, getAdvertDetail } from '../../utils/serviceAdverts';
 import AdvertDisplay from '../../components/AdvertDisplay';
 import styles from './AdvertDetail.module.scss';
 import Button from '../../components/Button';
@@ -28,7 +28,16 @@ export default function AdvertDetail() {
   function showError() {
     return <div className={styles.error}>{error.message}</div>;
   }
-  function deleteAdvert() {}
+
+  async function deleteAdvert() {
+    try {
+      await deleteAdvertApi(id);
+      navigate('/');
+    } catch (error) {
+      setError(error);
+      setTimeout(() => navigate('/'), 3000);
+    }
+  }
 
   function showAdvert() {
     return (
