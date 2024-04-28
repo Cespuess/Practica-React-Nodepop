@@ -10,10 +10,10 @@ export default function AdvertDisplay({ name, price, sale, tags, photo }) {
         src={photo ? photo : defautlImage}
         alt={name}
       />
-      <p className="name">{name}</p>
+      <p>{name}</p>
       <div className={styles.price}>{price} €</div>
-      <div className="tags">{tags}</div>
-      <p className="sale">{sale ? 'Se Vende' : 'Se compra'}</p>
+      <div className={styles.tags}>{tags.join(' ')}</div>
+      <p>{sale ? 'Se Vende' : 'Se compra'}</p>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import styles from './AdvertsPage.module.scss';
 
 export default function AdvertsPage() {
   const [adverts, setAdverts] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchAdverts() {
@@ -14,7 +15,7 @@ export default function AdvertsPage() {
         const adverts = await getAdverts();
         setAdverts(adverts);
       } catch (error) {
-        alert(error);
+        setError(error);
       }
     }
     fetchAdverts();
@@ -38,9 +39,17 @@ export default function AdvertsPage() {
     ));
   }
 
+  function showError() {
+    return <div className={styles.error}>{error.message}</div>;
+  }
+
   return (
     <div className={styles.advertsList}>
-      {adverts.length === 0 ? emptyAdverts() : fullAdverts(adverts)}
+      {error
+        ? showError()
+        : adverts.length === 0
+        ? emptyAdverts()
+        : fullAdverts(adverts)}
     </div>
   );
 }
