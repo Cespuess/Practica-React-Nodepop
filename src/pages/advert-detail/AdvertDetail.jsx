@@ -4,12 +4,16 @@ import { deleteAdvertApi, getAdvertDetail } from '../../utils/serviceAdverts';
 import AdvertDisplay from '../../components/AdvertDisplay';
 import styles from './AdvertDetail.module.scss';
 import Button from '../../components/Button';
+import { createPortal } from 'react-dom';
+import ConfirmAction from '../../components/ConfirmAction';
 
 export default function AdvertDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [advert, setAdvert] = useState(null);
   const [error, setError] = useState(null);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [deleteAd, setDeleteAd] = useState(false);
 
   useEffect(() => {
     async function getAdvert() {
@@ -29,6 +33,19 @@ export default function AdvertDetail() {
     return <div className={styles.error}>{error.message}</div>;
   }
 
+  function handleShowConfirm() {
+    setShowConfirm(true);
+  }
+
+  async function handleYesAnswer() {
+    await deleteAdvert();
+    setShowConfirm(false);
+  }
+
+  function handleNoAnswer() {
+    setShowConfirm(false);
+  }
+
   async function deleteAdvert() {
     try {
       await deleteAdvertApi(id);
@@ -43,10 +60,23 @@ export default function AdvertDetail() {
     return (
       <div className={styles.container}>
         <AdvertDisplay {...advert} style="detail" />
-        <Button eventFunction={deleteAdvert}>Eliminar Anuncio</Button>
+        <Button eventFunction={handleShowConfirm}>Eliminar Anuncio</Button>
       </div>
     );
   }
 
-  return <div>{error ? showError() : advert && showAdvert()}</div>;
+  return (
+    <>
+      <div>{error ? showError() : advert && showAdvert()}</div>;
+      {showConfirm &&
+        createPortal(
+          <ConfirmAction
+            text="Seguro que quieres borrar el anuncio?"
+            yesAnswerAction={handleYesAnswer}
+            noAnswerAction={handleNoAnswer}
+          />,
+          document.body
+        )}
+    </>
+  );
 }
