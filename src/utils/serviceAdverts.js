@@ -13,3 +13,8 @@ export async function getAdvertDetail(id) {
 export async function deleteAdvertApi(id) {
   await client.delete(`/api/v1/adverts/${id}`);
 }
+
+export async function getTags() {
+  const tags = await client.get('/api/v1/adverts/tags');
+  return tags;
+}

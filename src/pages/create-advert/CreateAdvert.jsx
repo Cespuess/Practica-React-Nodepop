@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import styles from './CreateAdvert.module.css';
+import { getTags } from '../../utils/serviceAdverts';
+import Checkbox from '../../components/Checkbox';
 
 export default function CreateAdvert() {
   const [formValues, setFormValues] = useState({
@@ -13,6 +15,25 @@ export default function CreateAdvert() {
   });
 
   const { name, sale, tags, price, photo } = formValues;
+  console.log(tags);
+  console.log(formValues);
+
+  useEffect(() => {
+    async function getTagsList() {
+      try {
+        const tagList = await getTags();
+        setFormValues((currentFormValues) => ({
+          ...currentFormValues,
+          tags: tagList
+        }));
+      } catch (error) {
+        // if (error.status === 404) navigate('/404');
+        // setError(error);
+      }
+    }
+
+    getTagsList();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -31,27 +52,11 @@ export default function CreateAdvert() {
         </div>
         <fieldset className={styles.formField}>
           <legend>Tags:</legend>
-          <div className={styles.formFieldTags}>
-            <input
-              type="checkbox"
-              id="lifestyle"
-              name="tags"
-              value="lifestyle"
-            />
-            <label htmlFor="lifestyle">Lifestyle</label>
-          </div>
-          <div className={styles.formFieldTags}>
-            <input type="checkbox" id="mobile" name="tags" value="mobile" />
-            <label htmlFor="mobile">Mobile</label>
-          </div>
-          <div className={styles.formFieldTags}>
-            <input type="checkbox" id="motor" name="tags" value="motor" />
-            <label htmlFor="motor">Motor</label>
-          </div>
-          <div className={styles.formFieldTags}>
-            <input type="checkbox" id="work" name="tags" value="work" />
-            <label htmlFor="work">Work</label>
-          </div>
+          {tags.map((tag, index) => (
+            <Checkbox key={index} id={tag} checkName={'tags'} checkValue={tag}>
+              {tag.toUpperCase()}
+            </Checkbox>
+          ))}
         </fieldset>
         <div className={styles.formField}>
           <label htmlFor="price">Precio:</label>
