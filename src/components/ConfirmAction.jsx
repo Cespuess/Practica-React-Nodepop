@@ -9,10 +9,12 @@ export default function ConfirmAction({
 }) {
   return (
     <div className={styles.container}>
-      <h3 className={styles.text}>{text}</h3>
-      <div className={styles.buttons}>
-        <Button eventFunction={yesAnswerAction}>Si</Button>
-        <Button eventFunction={noAnswerAction}>No</Button>
+      <div className={styles.wrapper}>
+        <h3 className={styles.text}>{text}</h3>
+        <div className={styles.buttons}>
+          <Button eventFunction={yesAnswerAction}>Si</Button>
+          <Button eventFunction={noAnswerAction}>No</Button>
+        </div>
       </div>
     </div>
   );
