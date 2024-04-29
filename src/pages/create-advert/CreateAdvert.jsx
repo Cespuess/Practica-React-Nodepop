@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import styles from './CreateAdvert.module.css';
-import { getTags } from '../../utils/serviceAdverts';
+import { createAdverts, getTags } from '../../utils/serviceAdverts';
 import Checkbox from '../../components/Checkbox';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateAdvert() {
   const [formValues, setFormValues] = useState({
@@ -16,6 +17,7 @@ export default function CreateAdvert() {
   const [error, setError] = useState(false);
   const [tagList, setTagList] = useState([]);
   const [selectedCheckbox, setSelectedCheckbox] = useState([]);
+  const navigate = useNavigate();
 
   const { name, tags, price, photo } = formValues;
   const disButton = !name || !tags.length || !price;
@@ -31,6 +33,13 @@ export default function CreateAdvert() {
     }
     getTagsList();
   }, []);
+
+  useEffect(() => {
+    setFormValues((currentFormValues) => ({
+      ...currentFormValues,
+      tags: selectedCheckbox
+    }));
+  }, [selectedCheckbox]);
 
   function showError() {
     return (
@@ -63,16 +72,16 @@ export default function CreateAdvert() {
     }
   }
 
-  useEffect(() => {
-    setFormValues((currentFormValues) => ({
-      ...currentFormValues,
-      tags: selectedCheckbox
-    }));
-  }, [selectedCheckbox]);
-
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(event);
+    if (!photo) delete formValues.photo;
+
+    try {
+      const createdAd = await createAdverts(formValues);
+      navigate(`/adverts/${createdAd.id}`);
+    } catch (error) {
+      setError(error);
+    }
   }
 
   return (
