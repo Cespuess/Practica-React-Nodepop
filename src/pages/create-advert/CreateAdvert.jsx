@@ -8,9 +8,9 @@ import Checkbox from '../../components/Checkbox';
 export default function CreateAdvert() {
   const [formValues, setFormValues] = useState({
     name: '',
-    sale: null,
+    sale: true,
     tags: [],
-    price: null,
+    price: '',
     photo: null
   });
   const [error, setError] = useState(false);
@@ -19,6 +19,7 @@ export default function CreateAdvert() {
 
   const { name, sale, tags, price, photo } = formValues;
 
+  console.log(formValues);
   useEffect(() => {
     async function getTagsList() {
       try {
@@ -38,6 +39,21 @@ export default function CreateAdvert() {
         {error.message}
       </div>
     );
+  }
+
+  function handleChangeFormValues(event) {
+    console.log(event.target.value);
+    let eventValue;
+    if (event.target.name === 'price') eventValue = Number(event.target.value);
+    else if (event.target.name === 'sale')
+      eventValue = Boolean(event.target.value);
+
+    console.log(eventValue);
+    setFormValues((currentFormValues) => ({
+      ...currentFormValues,
+      [event.target.name]:
+        eventValue !== undefined ? eventValue : event.target.value
+    }));
   }
 
   function handleChangeValueCheckbox(event) {
@@ -61,13 +77,18 @@ export default function CreateAdvert() {
         <form className={styles.formNewAd} onSubmit={handleSubmit}>
           <div className={styles.formField}>
             <label htmlFor="name">Nombre del producto:</label>
-            <Input inputType="text" inputName="name" inputValue="value" />
+            <Input
+              inputType="text"
+              inputName="name"
+              inputValue={name}
+              onChangeFunction={handleChangeFormValues}
+            />
           </div>
           <div className={styles.formField}>
             <label htmlFor="sale">Vendes o compras:</label>
-            <select name="sale" id="sale" required>
+            <select name="sale" id="sale" onChange={handleChangeFormValues}>
               <option value="true">vendes</option>
-              <option value="false">compras</option>
+              <option value="">compras</option>
             </select>
           </div>
           <fieldset className={styles.formField}>
@@ -85,7 +106,13 @@ export default function CreateAdvert() {
           </fieldset>
           <div className={styles.formField}>
             <label htmlFor="price">Precio:</label>
-            <Input inputType="number" inputName="price" numberStep="0.01" />
+            <Input
+              inputType="number"
+              inputName="price"
+              numberStep="0.01"
+              inputValue={price}
+              onChangeFunction={handleChangeFormValues}
+            />
           </div>
           <Button buttonType="submit">Crear Anuncio</Button>
         </form>

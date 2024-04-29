@@ -25,7 +25,7 @@ export default function Input({
 Input.propTypes = {
   inputType: PropTypes.string,
   inputName: PropTypes.string,
-  inputValue: PropTypes.string,
+  inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   numberStep: PropTypes.string,
   placeholderText: PropTypes.string,
   onChangeFunction: PropTypes.func
