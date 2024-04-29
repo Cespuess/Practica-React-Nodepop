@@ -15,6 +15,7 @@ export default function CreateAdvert() {
   });
   const [error, setError] = useState(false);
   const [tagList, setTagList] = useState([]);
+  const [selectedCheckbox, setSelectedCheckbox] = useState([]);
 
   const { name, sale, tags, price, photo } = formValues;
 
@@ -37,6 +38,15 @@ export default function CreateAdvert() {
         {error.message}
       </div>
     );
+  }
+
+  function handleChangeValueCheckbox(event) {
+    const { value, checked } = event.target;
+    if (checked) {
+      setSelectedCheckbox([...selectedCheckbox, value]);
+    } else {
+      setSelectedCheckbox(selectedCheckbox.filter((tag) => tag !== value));
+    }
   }
 
   async function handleSubmit(event) {
@@ -63,7 +73,12 @@ export default function CreateAdvert() {
           <fieldset className={styles.formField}>
             <legend>Tags:</legend>
             {tagList.map((tag, index) => (
-              <Checkbox key={index} id={tag} checkName={'tags'}>
+              <Checkbox
+                key={index}
+                id={tag}
+                checkValue={tag}
+                onChangeFunction={handleChangeValueCheckbox}
+              >
                 {tag.toUpperCase()}
               </Checkbox>
             ))}
