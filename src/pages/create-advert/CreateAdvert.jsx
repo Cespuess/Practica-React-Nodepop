@@ -17,9 +17,9 @@ export default function CreateAdvert() {
   const [tagList, setTagList] = useState([]);
   const [selectedCheckbox, setSelectedCheckbox] = useState([]);
 
-  const { name, sale, tags, price, photo } = formValues;
+  const { name, tags, price, photo } = formValues;
+  const disButton = !name || !tags.length || !price;
 
-  console.log(formValues);
   useEffect(() => {
     async function getTagsList() {
       try {
@@ -29,7 +29,6 @@ export default function CreateAdvert() {
         setError(error);
       }
     }
-
     getTagsList();
   }, []);
 
@@ -42,13 +41,12 @@ export default function CreateAdvert() {
   }
 
   function handleChangeFormValues(event) {
-    console.log(event.target.value);
+    // definimos eventValue para poder cambiar el tipo al valor de price y sale
     let eventValue;
     if (event.target.name === 'price') eventValue = Number(event.target.value);
     else if (event.target.name === 'sale')
       eventValue = Boolean(event.target.value);
 
-    console.log(eventValue);
     setFormValues((currentFormValues) => ({
       ...currentFormValues,
       [event.target.name]:
@@ -64,6 +62,13 @@ export default function CreateAdvert() {
       setSelectedCheckbox(selectedCheckbox.filter((tag) => tag !== value));
     }
   }
+
+  useEffect(() => {
+    setFormValues((currentFormValues) => ({
+      ...currentFormValues,
+      tags: selectedCheckbox
+    }));
+  }, [selectedCheckbox]);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -97,6 +102,7 @@ export default function CreateAdvert() {
               <Checkbox
                 key={index}
                 id={tag}
+                checkName="tags"
                 checkValue={tag}
                 onChangeFunction={handleChangeValueCheckbox}
               >
@@ -114,7 +120,9 @@ export default function CreateAdvert() {
               onChangeFunction={handleChangeFormValues}
             />
           </div>
-          <Button buttonType="submit">Crear Anuncio</Button>
+          <Button buttonType="submit" disabledButton={disButton}>
+            Crear Anuncio
+          </Button>
         </form>
         {error && showError()}
       </div>
