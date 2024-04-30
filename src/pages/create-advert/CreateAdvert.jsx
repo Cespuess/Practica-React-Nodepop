@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import styles from './CreateAdvert.module.css';
@@ -11,15 +11,16 @@ export default function CreateAdvert() {
     name: '',
     sale: true,
     tags: [],
-    price: '',
-    photo: null
+    price: ''
   });
+  const inputFileRef = useRef();
+  console.log(typeof inputFileRef);
   const [error, setError] = useState(false);
   const [tagList, setTagList] = useState([]);
   const [selectedCheckbox, setSelectedCheckbox] = useState([]);
   const navigate = useNavigate();
 
-  const { name, tags, price, photo } = formValues;
+  const { name, tags, price } = formValues;
   const disButton = !name || !tags.length || !price;
 
   useEffect(() => {
@@ -74,10 +75,13 @@ export default function CreateAdvert() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    if (!photo) delete formValues.photo;
+    const formData = { ...formValues };
+    if (inputFileRef.current.files.length === 1) {
+      formData.photo = inputFileRef.current.files[0];
+    }
 
     try {
-      const createdAd = await createAdverts(formValues);
+      const createdAd = await createAdverts(formData);
       navigate(`/adverts/${createdAd.id}`);
     } catch (error) {
       setError(error);
@@ -93,6 +97,7 @@ export default function CreateAdvert() {
             <label htmlFor="name">Nombre del producto:</label>
             <Input
               inputType="text"
+              inputId="name"
               inputName="name"
               inputValue={name}
               onChangeFunction={handleChangeFormValues}
@@ -123,11 +128,16 @@ export default function CreateAdvert() {
             <label htmlFor="price">Precio:</label>
             <Input
               inputType="number"
+              inputId="price"
               inputName="price"
               numberStep="0.01"
               inputValue={price}
               onChangeFunction={handleChangeFormValues}
             />
+          </div>
+          <div className={styles.formField}>
+            <label htmlFor="file">Foto:</label>
+            <Input inputType="file" inputId="file" inputRef={inputFileRef} />
           </div>
           <Button buttonType="submit" disabledButton={disButton}>
             Crear Anuncio

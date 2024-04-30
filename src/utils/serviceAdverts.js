@@ -20,6 +20,8 @@ export async function getTags() {
 }
 
 export async function createAdverts(advert) {
-  const response = await client.post('/api/v1/adverts', advert);
+  const response = await client.post('/api/v1/adverts', advert, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
   return response;
 }
