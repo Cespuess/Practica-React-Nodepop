@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import styles from './CreateAdvert.module.css';
-import { createAdverts, getTags } from '../../utils/serviceAdverts';
+import { createAdverts } from '../../utils/serviceAdverts';
 import Checkbox from '../../components/Checkbox';
 import { useNavigate } from 'react-router-dom';
+import { getTagsList } from '../../utils/utils';
 
 export default function CreateAdvert() {
   const [formValues, setFormValues] = useState({
@@ -24,15 +25,7 @@ export default function CreateAdvert() {
   const disButton = !name || !tags.length || !price;
 
   useEffect(() => {
-    async function getTagsList() {
-      try {
-        const tagListAPI = await getTags();
-        setTagList(tagListAPI);
-      } catch (error) {
-        setError(error);
-      }
-    }
-    getTagsList();
+    getTagsList(setTagList, setError);
   }, []);
 
   useEffect(() => {
@@ -110,8 +103,10 @@ export default function CreateAdvert() {
               <option value="">compras</option>
             </select>
           </div>
-          <fieldset className={styles.formField}>
-            <legend>Tags:</legend>
+          <fieldset
+            className={`${styles.formField} ${styles.createAdFieldset}`}
+          >
+            <legend className={styles.createAdLegend}>Tags:</legend>
             {tagList.map((tag, index) => (
               <Checkbox
                 key={index}

@@ -19,11 +19,11 @@
   gap: 0.5rem;
 }
 
-fieldset {
+.createAdFieldset {
   border: none;
 }
 
-legend {
+.createAdLegend {
   margin-bottom: 0.5rem;
 }
 

@@ -1,12 +1,14 @@
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../pages/auth/authContext';
 import { logout } from '../../pages/auth/service';
 import Button from '../Button';
 import styles from './layout-styles/Header.module.scss';
+import FiltersDisplay from '../FiltersDisplay';
 
 export default function Header() {
   const { isLogged, onLogout } = useAuth();
-
+  const location = useLocation();
+  console.log(location);
   const handleLogout = () => {
     onLogout();
     logout();
@@ -16,6 +18,7 @@ export default function Header() {
       <Link to="/">
         <h1>NODEPOP</h1>
       </Link>
+      {location.pathname === '/adverts' && <FiltersDisplay />}
       <nav>
         {isLogged ? (
           <>
