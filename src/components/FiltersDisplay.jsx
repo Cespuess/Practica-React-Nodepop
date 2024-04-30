@@ -7,36 +7,82 @@ import styles from './components-styles/FiltersDisplay.module.scss';
 export default function FiltersDisplay() {
   const [tagList, setTagList] = useState([]);
   const [error, setError] = useState(false);
+  const [filtersValues, setFiltersValues] = useState({
+    filterName: '',
+    filterTags: [],
+    filterSale: 'all'
+  });
+  const { filterName, filterTags } = filtersValues;
+  console.log(filtersValues);
 
   useEffect(() => {
-    getTagsList(setTagList, setError);
+    try {
+      getTagsList(setTagList, setError);
+    } catch {
+      setError(error);
+    }
   }, []);
+
+  function showError() {
+    return (
+      <div className={styles.error} onClick={() => window.location.reload()}>
+        {error.message}
+      </div>
+    );
+  }
+
+  function handleChangeFiltersValues(event) {
+    let eventValue;
+    if (event.target.name === 'filterTags') {
+      eventValue = [...filterTags];
+      const { value, checked } = event.target;
+      if (checked) eventValue.push(value);
+      else {
+        const index = eventValue.indexOf(value);
+        eventValue.splice(index, 1);
+      }
+    }
+    setFiltersValues((currentFiltersValues) => ({
+      ...currentFiltersValues,
+      [event.target.name]:
+        eventValue !== undefined ? eventValue : event.target.value
+    }));
+  }
 
   return (
     <div className={styles.container}>
       <Input
         inputType="text"
         inputName="filterName"
-        inputValue=""
+        inputValue={filterName}
         placeholderText="Filtrado por nombre"
+        onChangeFunction={handleChangeFiltersValues}
       />
-      <fieldset className={styles.filtersFieldset}>
-        {tagList.map((tag, index) => (
-          <Checkbox
-            key={index}
-            id={tag}
-            checkName="tags"
-            checkValue={tag}
-            onChangeFunction="d"
-          >
-            {tag.toUpperCase()}
-          </Checkbox>
-        ))}
-      </fieldset>
-      <select className={styles.filtersSelect} name="sale">
+      {error ? (
+        showError()
+      ) : (
+        <fieldset className={styles.filtersFieldset}>
+          {tagList.map((tag, index) => (
+            <Checkbox
+              key={index}
+              id={tag}
+              checkName="filterTags"
+              checkValue={tag}
+              onChangeFunction={handleChangeFiltersValues}
+            >
+              {tag.toUpperCase()}
+            </Checkbox>
+          ))}
+        </fieldset>
+      )}
+      <select
+        className={styles.filtersSelect}
+        name="filterSale"
+        onChange={handleChangeFiltersValues}
+      >
         <option value="all">Venta / Compra</option>
         <option value="true">Venta</option>
-        <option value="false">Compra</option>
+        <option value="">Compra</option>
       </select>
     </div>
   );
