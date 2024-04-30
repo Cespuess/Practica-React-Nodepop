@@ -3,15 +3,12 @@ import Checkbox from './Checkbox';
 import Input from './Input';
 import { getTagsList } from '../utils/utils';
 import styles from './components-styles/FiltersDisplay.module.scss';
+import { useFilters } from '../context/FiltersContext';
 
 export default function FiltersDisplay() {
   const [tagList, setTagList] = useState([]);
   const [error, setError] = useState(false);
-  const [filtersValues, setFiltersValues] = useState({
-    filterName: '',
-    filterTags: [],
-    filterSale: 'all'
-  });
+  const { filtersValues, setFiltersValues } = useFilters();
   const { filterName, filterTags } = filtersValues;
   console.log(filtersValues);
 
@@ -20,7 +17,7 @@ export default function FiltersDisplay() {
       getTagsList(setTagList, setError);
     } catch {
       setError(error);
-    }
+    } // eslint-disable-next-line
   }, []);
 
   function showError() {
