@@ -4,10 +4,13 @@ import Button from '../../components/Button';
 import { Link } from 'react-router-dom';
 import AdvertDisplay from '../../components/AdvertDisplay';
 import styles from './AdvertsPage.module.scss';
+import { useFilters } from '../../context/FiltersContext';
 
 export default function AdvertsPage() {
   const [adverts, setAdverts] = useState([]);
   const [error, setError] = useState(null);
+  const { filtersValues } = useFilters();
+  const { filterName, filterSale, filterTags } = filtersValues;
 
   useEffect(() => {
     async function fetchAdverts() {
@@ -29,14 +32,44 @@ export default function AdvertsPage() {
     );
   }
 
-  function fullAdverts(adverts) {
-    return adverts.map(({ id, ...advert }) => (
+  function fullAdverts(ads) {
+    return ads.map(({ id, ...ad }) => (
       <div key={id}>
         <Link to={`/adverts/${id}`}>
-          <AdvertDisplay {...advert} style="list" />
+          <AdvertDisplay {...ad} style="list" />
         </Link>
       </div>
     ));
+  }
+
+  function filteredAdverts(ads) {
+    let advertsToShow = ads;
+    if (filterSale !== 'all') {
+      advertsToShow = advertsToShow.filter(
+        (ad) => ad.sale === Boolean(filterSale)
+      );
+    }
+    if (filterName) {
+      advertsToShow = advertsToShow.filter((ad) =>
+        ad.name.toUpperCase().includes(filterName.toUpperCase())
+      );
+    }
+
+    console.log(advertsToShow);
+
+    return advertsToShow.length === 0 ? (
+      <h3>No hay anuncios con estos filtros</h3>
+    ) : (
+      fullAdverts(advertsToShow)
+    );
+  }
+
+  function showAdverts(ads) {
+    if (!filterName && filterSale === 'all' && filterTags.length === 0) {
+      return fullAdverts(ads);
+    } else {
+      return filteredAdverts(ads);
+    }
   }
 
   function showError() {
@@ -49,7 +82,10 @@ export default function AdvertsPage() {
         ? showError()
         : adverts.length === 0
         ? emptyAdverts()
-        : fullAdverts(adverts)}
+        : showAdverts(adverts)}
     </div>
   );
 }
+
+// si no hay filtros mostrar la lista normal
+// si los hay, hacer un filter de los adverts aplicando los filtros

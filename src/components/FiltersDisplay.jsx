@@ -10,7 +10,6 @@ export default function FiltersDisplay() {
   const [error, setError] = useState(false);
   const { filtersValues, setFiltersValues } = useFilters();
   const { filterName, filterTags } = filtersValues;
-  console.log(filtersValues);
 
   useEffect(() => {
     try {
