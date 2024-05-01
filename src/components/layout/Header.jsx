@@ -13,6 +13,7 @@ export default function Header() {
     onLogout();
     logout();
   };
+
   return (
     <header className={styles.header}>
       <Link to="/">

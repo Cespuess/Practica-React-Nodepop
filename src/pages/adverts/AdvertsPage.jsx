@@ -54,8 +54,13 @@ export default function AdvertsPage() {
         ad.name.toUpperCase().includes(filterName.toUpperCase())
       );
     }
+    if (filterTags !== 0) {
+      advertsToShow = advertsToShow.filter((ad) => {
+        return filterTags.every((tag) => ad.tags.includes(tag));
+      });
+    }
 
-    console.log(advertsToShow);
+    console.log(filtersValues);
 
     return advertsToShow.length === 0 ? (
       <h3>No hay anuncios con estos filtros</h3>
@@ -86,6 +91,3 @@ export default function AdvertsPage() {
     </div>
   );
 }
-
-// si no hay filtros mostrar la lista normal
-// si los hay, hacer un filter de los adverts aplicando los filtros

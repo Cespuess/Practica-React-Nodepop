@@ -13,6 +13,11 @@ export default function FiltersDisplay() {
 
   useEffect(() => {
     try {
+      setFiltersValues({
+        filterName: '',
+        filterTags: [],
+        filterSale: 'all'
+      });
       getTagsList(setTagList, setError);
     } catch {
       setError(error);

@@ -15,7 +15,6 @@ export default function CreateAdvert() {
     price: ''
   });
   const inputFileRef = useRef();
-  console.log(typeof inputFileRef);
   const [error, setError] = useState(false);
   const [tagList, setTagList] = useState([]);
   const [selectedCheckbox, setSelectedCheckbox] = useState([]);
