@@ -18,10 +18,11 @@ export default function CreateAdvert() {
   const [error, setError] = useState(false);
   const [tagList, setTagList] = useState([]);
   const [selectedCheckbox, setSelectedCheckbox] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
   const navigate = useNavigate();
 
   const { name, tags, price } = formValues;
-  const disButton = !name || !tags.length || !price;
+  const disButton = !name || !tags.length || !price || isFetching;
 
   useEffect(() => {
     getTagsList(setTagList, setError);
@@ -73,10 +74,13 @@ export default function CreateAdvert() {
     }
 
     try {
+      setIsFetching(true);
       const createdAd = await createAdverts(formData);
       navigate(`/adverts/${createdAd.id}`);
     } catch (error) {
       setError(error);
+    } finally {
+      setIsFetching(false);
     }
   }
 
