@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import styles from './CreateAdvert.module.css';
+import styles from './CreateAdvert.module.scss';
 import { createAdverts } from '../../utils/serviceAdverts';
 import Checkbox from '../../components/Checkbox';
 import { useNavigate } from 'react-router-dom';
@@ -90,7 +90,9 @@ export default function CreateAdvert() {
         <h2>Nuevo Anuncio</h2>
         <form className={styles.formNewAd} onSubmit={handleSubmit}>
           <div className={styles.formField}>
-            <label htmlFor="name">Nombre del producto:</label>
+            <label htmlFor="name" className={styles.labelForm}>
+              Nombre del producto:
+            </label>
             <Input
               inputType="text"
               inputId="name"
@@ -100,7 +102,9 @@ export default function CreateAdvert() {
             />
           </div>
           <div className={styles.formField}>
-            <label htmlFor="sale">Vendes o compras:</label>
+            <label htmlFor="sale" className={styles.labelForm}>
+              Vendes o compras:
+            </label>
             <select name="sale" id="sale" onChange={handleChangeFormValues}>
               <option value="true">vendes</option>
               <option value="">compras</option>
@@ -123,7 +127,9 @@ export default function CreateAdvert() {
             ))}
           </fieldset>
           <div className={styles.formField}>
-            <label htmlFor="price">Precio:</label>
+            <label htmlFor="price" className={styles.labelForm}>
+              Precio:
+            </label>
             <Input
               inputType="number"
               inputId="price"
@@ -134,7 +140,9 @@ export default function CreateAdvert() {
             />
           </div>
           <div className={styles.formField}>
-            <label htmlFor="file">Foto:</label>
+            <label htmlFor="file" className={styles.labelForm}>
+              Foto:
+            </label>
             <Input inputType="file" inputId="file" inputRef={inputFileRef} />
           </div>
           <Button buttonType="submit" disabledButton={disButton}>
