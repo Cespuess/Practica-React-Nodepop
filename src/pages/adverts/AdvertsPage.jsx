@@ -26,20 +26,26 @@ export default function AdvertsPage() {
 
   function emptyAdverts() {
     return (
-      <Link to="/adverts/new">
-        <Button>¡Sé el primero en crear un anuncio!</Button>
-      </Link>
+      <div className={styles.emptyAdverts}>
+        <Link to="/adverts/new">
+          <Button>¡Sé el primero en crear un anuncio!</Button>
+        </Link>
+      </div>
     );
   }
 
   function fullAdverts(ads) {
-    return ads.map(({ id, ...ad }) => (
-      <div key={id}>
-        <Link to={`/adverts/${id}`}>
-          <AdvertDisplay {...ad} style="list" />
-        </Link>
+    return (
+      <div className={styles.advertsList}>
+        {ads.map(({ id, ...ad }) => (
+          <div key={id} className={styles.advertContainerList}>
+            <Link to={`/adverts/${id}`}>
+              <AdvertDisplay {...ad} style="list" />
+            </Link>
+          </div>
+        ))}
       </div>
-    ));
+    );
   }
 
   function filteredAdverts(ads) {
@@ -82,12 +88,12 @@ export default function AdvertsPage() {
   }
 
   return (
-    <div className={styles.advertsList}>
+    <>
       {error
         ? showError()
         : adverts.length === 0
         ? emptyAdverts()
         : showAdverts(adverts)}
-    </div>
+    </>
   );
 }

@@ -11,12 +11,14 @@ export default function AdvertDisplay({
   style
 }) {
   return (
-    <div className={styles.advertContainer}>
-      <img
-        className={style === 'list' ? styles.imageList : styles.imageDetail}
-        src={photo ? photo : defautlImage}
-        alt={name}
-      />
+    <div
+      className={
+        style === 'list' ? styles.advertDisplayList : styles.advertDisplayDetail
+      }
+    >
+      <div className={styles.containerImage}>
+        <img src={photo ? photo : defautlImage} alt={name} />
+      </div>
       <p>{name}</p>
       <div className={styles.price}>{price} €</div>
       <div className={styles.tags}>{tags.join(' ')}</div>

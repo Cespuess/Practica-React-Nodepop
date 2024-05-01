@@ -1,19 +1,36 @@
 @import '../../main.module.scss';
 
-.advertsList {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-auto-rows: 300px;
-  gap: 1rem;
+.emptyAdverts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .error {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: red;
-    background-color: rgba(218, 100, 100, 0.521);
-    border: red 1px solid;
-    border-radius: 10px;
-    padding: 0.5rem;
-  }
+.advertsList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  width: 90%;
+}
+
+.advertContainerList {
+  height: 300px;
+  width: 250px;
+  border: solid 2px $primary-color;
+  padding: 1rem;
+  border-radius: 10px;
+  color: black;
+}
+
+.error {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  background-color: rgba(218, 100, 100, 0.521);
+  border: red 1px solid;
+  border-radius: 10px;
+  padding: 0.5rem;
 }
