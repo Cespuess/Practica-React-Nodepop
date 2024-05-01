@@ -66,7 +66,7 @@ export default function AdvertDetail() {
 
   return (
     <>
-      <div>{error ? showError() : advert && showAdvert()}</div>
+      {error ? showError() : advert && showAdvert()}
       {showConfirm &&
         createPortal(
           <ConfirmAction

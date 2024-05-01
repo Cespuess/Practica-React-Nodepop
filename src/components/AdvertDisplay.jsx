@@ -19,10 +19,12 @@ export default function AdvertDisplay({
       <div className={styles.containerImage}>
         <img src={photo ? photo : defautlImage} alt={name} />
       </div>
-      <p>{name}</p>
-      <div className={styles.price}>{price} €</div>
-      <div className={styles.tags}>{tags.join(' ')}</div>
-      <p>{sale ? 'Se Vende' : 'Se compra'}</p>
+      <div className={styles.description}>
+        <p>{name}</p>
+        <div className={styles.price}>{price} €</div>
+        <div className={styles.tags}>{tags.join(' ')}</div>
+        <p>{sale ? 'Se Vende' : 'Se compra'}</p>
+      </div>
     </div>
   );
 }
