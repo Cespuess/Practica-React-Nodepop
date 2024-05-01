@@ -4,15 +4,32 @@ import { logout } from '../../pages/auth/service';
 import Button from '../Button';
 import styles from './layout-styles/Header.module.scss';
 import FiltersDisplay from '../FiltersDisplay';
+import { createPortal } from 'react-dom';
+import ConfirmAction from '../ConfirmAction';
+import { useState } from 'react';
 
 export default function Header() {
   const { isLogged, onLogout } = useAuth();
   const location = useLocation();
-  console.log(location);
+  const [showConfirm, setShowConfirm] = useState(false);
+
   const handleLogout = () => {
     onLogout();
     logout();
   };
+
+  function handleShowConfirm() {
+    setShowConfirm(true);
+  }
+
+  async function handleYesAnswer() {
+    handleLogout();
+    setShowConfirm(false);
+  }
+
+  function handleNoAnswer() {
+    setShowConfirm(false);
+  }
 
   return (
     <header className={styles.header}>
@@ -37,12 +54,21 @@ export default function Header() {
             >
               <Button>Crear Anuncio</Button>
             </NavLink>
-            <Button eventFunction={handleLogout}>Logout</Button>
+            <Button eventFunction={handleShowConfirm}>Logout</Button>
           </>
         ) : (
           <p>No hay ningún usuario logeado</p>
         )}
       </nav>
+      {showConfirm &&
+        createPortal(
+          <ConfirmAction
+            text="Seguro que quieres cerra sesión?"
+            yesAnswerAction={handleYesAnswer}
+            noAnswerAction={handleNoAnswer}
+          />,
+          document.body
+        )}
     </header>
   );
 }
