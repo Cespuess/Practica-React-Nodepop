@@ -8,10 +8,14 @@ import { AuthContextProvider } from './pages/auth/authContext.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import { FiltersContextProvider } from './context/FiltersContext.jsx';
 
-const accessToken = storageLocal.get('auth');
+const accessTokenLocal = storageLocal.get('auth');
+const accessTokenSession = storageSession.get('auth');
+const accessToken = accessTokenLocal || accessTokenSession;
+
 if (accessToken) {
-  storageSession.set('auth', accessToken.accessToken);
-  setAuthorizationHeader(accessToken.accessToken);
+  const token = accessTokenSession ? accessTokenSession : accessTokenLocal;
+  storageSession.set('auth', token);
+  setAuthorizationHeader(token);
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(

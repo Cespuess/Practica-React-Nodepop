@@ -8,7 +8,7 @@ import { storageLocal, storageSession } from '../../utils/storage';
 export const login = async (credentials) => {
   const accessToken = await client.post('/api/auth/login', credentials);
   setAuthorizationHeader(accessToken.accessToken);
-  return accessToken;
+  return accessToken.accessToken;
 };
 
 export const logout = () => {
