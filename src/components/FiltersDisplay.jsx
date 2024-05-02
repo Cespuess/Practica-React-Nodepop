@@ -4,6 +4,7 @@ import Input from './Input';
 import { getTagsList } from '../utils/utils';
 import styles from './components-styles/FiltersDisplay.module.scss';
 import { useFilters } from '../context/FiltersContext';
+import ErrorsDisplay from './ErrorsDisplay';
 
 export default function FiltersDisplay() {
   const [tagList, setTagList] = useState([]);
@@ -24,11 +25,14 @@ export default function FiltersDisplay() {
     } // eslint-disable-next-line
   }, []);
 
+  const handleError = () => window.location.reload();
+
   function showError() {
     return (
-      <div className={styles.error} onClick={() => window.location.reload()}>
-        {error.message}
-      </div>
+      <ErrorsDisplay
+        errorMessage={error.message}
+        onClickFunction={handleError}
+      />
     );
   }
 

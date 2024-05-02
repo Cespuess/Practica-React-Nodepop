@@ -15,7 +15,7 @@ export default function CreateAdvert() {
     price: ''
   });
   const inputFileRef = useRef();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [tagList, setTagList] = useState([]);
   const [selectedCheckbox, setSelectedCheckbox] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -35,9 +35,13 @@ export default function CreateAdvert() {
     }));
   }, [selectedCheckbox]);
 
+  function handleError() {
+    setError(null);
+  }
+
   function showError() {
     return (
-      <div className={styles.error} onClick={() => setError(false)}>
+      <div className={styles.error} onClick={handleError}>
         {error.message}
       </div>
     );

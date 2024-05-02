@@ -6,6 +6,7 @@ import styles from './AdvertDetail.module.scss';
 import Button from '../../components/Button';
 import { createPortal } from 'react-dom';
 import ConfirmAction from '../../components/ConfirmAction';
+import ErrorsDisplay from '../../components/ErrorsDisplay';
 
 export default function AdvertDetail() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ export default function AdvertDetail() {
   }, [id, navigate]);
 
   function showError() {
-    return <div className={styles.error}>{error.message}</div>;
+    return <ErrorsDisplay errorMessage={error.message} />;
   }
 
   function handleShowConfirm() {
