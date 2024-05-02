@@ -85,7 +85,7 @@ export default function CreateAdvert() {
   }
 
   return (
-    <>
+    <section className={styles.section}>
       <div className={styles.container}>
         <h2>Nuevo Anuncio</h2>
         <form className={styles.formNewAd} onSubmit={handleSubmit}>
@@ -149,8 +149,8 @@ export default function CreateAdvert() {
             Crear Anuncio
           </Button>
         </form>
-        {error && showError()}
       </div>
-    </>
+      {error && showError()}
+    </section>
   );
 }
