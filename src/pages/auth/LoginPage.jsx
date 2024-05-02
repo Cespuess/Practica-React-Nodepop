@@ -6,6 +6,7 @@ import { login } from './service';
 import { storageLocal, storageSession } from '../../utils/storage';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from './authContext';
+import ErrorsDisplay from '../../components/ErrorsDisplay';
 
 export default function LoginPage() {
   const [formValues, setFormValues] = useState({
@@ -30,6 +31,15 @@ export default function LoginPage() {
   };
 
   const handleError = () => setError(null);
+
+  function showError() {
+    return (
+      <ErrorsDisplay
+        errorMessage={error.message}
+        onClickFunction={handleError}
+      />
+    );
+  }
 
   const handleChangeCheckValue = () => {
     setCheckValue(() => !checkValue);
@@ -85,11 +95,7 @@ export default function LoginPage() {
         <Button buttonType="submit" disabledButton={disButton}>
           Acceder a Nodepop
         </Button>
-        {error && (
-          <div className={styles.errorDisplay} onClick={handleError}>
-            {error.message}
-          </div>
-        )}
+        {error && showError()}
       </form>
     </div>
   );
