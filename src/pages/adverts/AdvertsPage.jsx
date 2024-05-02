@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import AdvertDisplay from '../../components/AdvertDisplay';
 import styles from './AdvertsPage.module.scss';
 import { useFilters } from '../../context/FiltersContext';
+import ErrorsDisplay from '../../components/ErrorsDisplay';
 
 export default function AdvertsPage() {
   const [adverts, setAdverts] = useState([]);
@@ -84,7 +85,7 @@ export default function AdvertsPage() {
   }
 
   function showError() {
-    return <div className={styles.error}>{error.message}</div>;
+    return <ErrorsDisplay errorMessage={error.message} />;
   }
 
   return (
