@@ -6,6 +6,7 @@ import { createAdverts } from '../../utils/serviceAdverts';
 import Checkbox from '../../components/Checkbox';
 import { useNavigate } from 'react-router-dom';
 import { getTagsList } from '../../utils/utils';
+import ErrorsDisplay from '../../components/ErrorsDisplay';
 
 export default function CreateAdvert() {
   const [formValues, setFormValues] = useState({
@@ -41,9 +42,10 @@ export default function CreateAdvert() {
 
   function showError() {
     return (
-      <div className={styles.error} onClick={handleError}>
-        {error.message}
-      </div>
+      <ErrorsDisplay
+        errorMessage={error.message}
+        onClickFunction={handleError}
+      />
     );
   }
 
