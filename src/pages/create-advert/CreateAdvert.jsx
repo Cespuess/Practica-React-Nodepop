@@ -149,7 +149,12 @@ export default function CreateAdvert() {
             <label htmlFor="file" className={styles.labelForm}>
               Foto:
             </label>
-            <Input inputType="file" inputId="file" inputRef={inputFileRef} />
+            <Input
+              inputType="file"
+              inputId="file"
+              inputRef={inputFileRef}
+              acceptFiles="image/png, image/jpeg"
+            />
           </div>
           <Button buttonType="submit" disabledButton={disButton}>
             Crear Anuncio

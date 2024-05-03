@@ -9,6 +9,7 @@ export default function Input({
   numberStep,
   inputRef,
   placeholderText,
+  acceptFiles,
   onChangeFunction
 }) {
   return (
@@ -21,6 +22,7 @@ export default function Input({
       step={numberStep}
       ref={inputRef}
       placeholder={placeholderText}
+      accept={acceptFiles}
       onChange={onChangeFunction}
     ></input>
   );
@@ -34,5 +36,6 @@ Input.propTypes = {
   numberStep: PropTypes.string,
   inputRef: PropTypes.object,
   placeholderText: PropTypes.string,
+  acceptFiles: PropTypes.string,
   onChangeFunction: PropTypes.func
 };

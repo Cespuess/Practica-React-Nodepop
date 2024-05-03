@@ -12,20 +12,20 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<Navigate to="/adverts" />} />
         <Route
-          path="/adverts"
+          path="/"
           element={
             <RequireAuth>
               <Outlet />
             </RequireAuth>
           }
         >
-          <Route index element={<AdvertsPage />} />
+          <Route index element={<Navigate to="/adverts" />} />
+          <Route path="/adverts" element={<AdvertsPage />} />
           <Route path="/adverts/:id" element={<AdvertDetail />} />
           <Route path="/adverts/new" element={<CreateAdvert />} />
+          <Route path="/404" element={<NotFound />} />
         </Route>
-        <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" />} />
       </Routes>
     </Layout>
