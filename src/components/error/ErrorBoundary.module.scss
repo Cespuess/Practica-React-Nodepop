@@ -1,0 +1,16 @@
+@import '../../main.module.scss';
+
+.container {
+  width: 80%;
+  max-width: 900px;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+
+  h1,
+  .info {
+    color: $primary-color;
+  }
+}

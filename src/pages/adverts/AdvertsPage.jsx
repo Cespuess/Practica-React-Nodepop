@@ -67,8 +67,6 @@ export default function AdvertsPage() {
       });
     }
 
-    console.log(filtersValues);
-
     return advertsToShow.length === 0 ? (
       <h3>No hay anuncios con estos filtros</h3>
     ) : (
