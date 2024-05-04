@@ -73,6 +73,9 @@ npm run dev
 http://localhost:5173/
 ```
 
+> [!CAUTION]
+> En el caso de que la página no se cargue, se recomienda desactivar las extensiones bloqueadoras de anuncios del navegador.
+
 ### Páginas y enrutamiento
 
 - **Rutas públicas:**
